@@ -606,7 +606,7 @@ def main_func():
         #infile = loadtxt('inputfilen.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
         
         ## below it the one i was working with 
-        infile = loadtxt('aa_test_col1L_finalForm.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
+        infile = loadtxt('aa_test_col1L_finalForm_f.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
         ##infile = loadtxt('inputfile1.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
 
         # check the input file for errors
