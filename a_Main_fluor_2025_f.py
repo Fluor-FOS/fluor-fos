@@ -602,11 +602,11 @@ def main_func():
     check = True
     while check:
         # imports the provided txt file   
-        ##############infile = fname()  
+        infile = fname()  
         #infile = loadtxt('inputfilen.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
         
         ## below it the one i was working with 
-        infile = loadtxt('aa_test_col1L_finalForm_f.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
+        #infile = loadtxt('aa_test_col1L_finalForm_f.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
         ##infile = loadtxt('inputfile1.txt', comments="#", dtype=str, delimiter="/")#  a_test_Mult        testMult
 
         # check the input file for errors
