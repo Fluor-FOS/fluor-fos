@@ -1,4 +1,4 @@
-# fluor-fos
+# Fluor-FOS
 Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handel infinte number of layers, scattering particlles, and fluorescne tparticles, all with distnct material and optical properteis. This progran is equpped with user-freindly interface that allows the user to insert the particles and mediums and then place then in multi-layer structure with adjustable struicutral parameters. The input file (input.txt) can be inserted once the main progrma file is excuted. The program is in python-language and can be downlaoded to be run via any operating system, along with excutable file. 
 You can refer to our article for more details (). 
 
@@ -16,7 +16,7 @@ The main functionalities our program offer can be summarized as follow:
 
 Recommendations for the input file format:
   - The user should include the material optical proprerties txt files next to particle and medium keywords. Here is an example for input file txt:
-%%%%%%%%%%%%%% Example for input file %%%%%%%%%%%%%%%%%%%%%%%
+```
   MC
   output: aaa_case_uncertainty_results
 
@@ -61,12 +61,11 @@ Recommendations for the input file format:
   D: 0.6
   VF: 10
   std: 0
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+```
 
 - Another example in case the user insert uncertainty analysis:
 
-%%%%%%%%%%%%%% Example for input file with uncertainty %%%%%%%%%%%%%%%%%%%%%%%
+```
   MC
   output: aaa_case_uncertainty_results
 
@@ -111,7 +110,6 @@ Recommendations for the input file format:
   D: 0.6
   VF: 10
   std: 0
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+```
 
 
