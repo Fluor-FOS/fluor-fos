@@ -23,7 +23,7 @@ The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily d
 
 Recommendations for Input File Format:
 - The user should include the material optical properties text files next to particle and medium keywords. Here is an example input file:
-- ```
+ ```
   MC
   output: aaa_case_uncertainty_results
 
@@ -69,7 +69,6 @@ Recommendations for Input File Format:
   VF: 10
   std: 0
 ```
-
 - Another example when the user includes uncertainty analysis:
 
 ```
