@@ -1,22 +1,29 @@
 # Fluor-FOS
-Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handel infinte number of layers, scattering particlles, and fluorescne tparticles, all with distnct material and optical properteis. This progran is equpped with user-freindly interface that allows the user to insert the particles and mediums and then place then in multi-layer structure with adjustable struicutral parameters. The input file (input.txt) can be inserted once the main progrma file is excuted. The program is in python-language and can be downlaoded to be run via any operating system, along with excutable file. 
-You can refer to our article for more details (). 
+Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle an infinite number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters. The input file (input.txt) is needed to execute the main program file, and an example is shown in the repository. The program is written in Python and can be downloaded to run on any operating system, with an executable file also available.
+You can refer to our article for more details [].
 
-The excutable file can be found in the resciporty .
+The main functionalities our program offers can be summarized as follows:
+
+1) **Mie theory calculations for spherical particle inclusions.** For non-spherical inclusions, users can input pre-calculated spectral attenuation properties (λ, μₛ, μₐ, and g) obtained from other numerical methods such as FEM (finite element method) and DDA (discrete dipole approximation). Other cases, such as dye inclusions, are discussed in the article.
+
+2) **Multi-layer fluorescent particle modeling.** Users can insert multiple fluorescent particle inclusions in multi-layer structures with various incident light sources for creating new colors or spectral shifting purposes in 1D systems. Such strategies are relevant for radiative cooling and energy harvesting applications. The software has the potential to be expanded to 2D and 3D systems in future developments.
+
+3) **Uncertainty quantification.** Users can incorporate uncertain optical properties by providing the standard deviation along with optical properties and specifying the desired number of runs for smooth intervals. The uncertainty analysis is based on a derived equation combining normal distribution with random number generation via the fundamental principles of Monte Carlo methods.
+
+4) **Parallel processing capabilities.** The software utilizes parallel processing for photon launching using the Numba package, despite the computational challenges associated with 2D tensor calculations for reflectance, transmittance, and absorptance.
+
+5) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
+
+The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily directed toward thermal and visual performance:
+
+1) **Spectral and average optical properties.** The spectral and average radiosity (reflectance and fluorescence), transmittance, and absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
+
+2) **Color prediction.** The predicted color is calculated using CIE standards given the spectral radiosity and incident spectral power.
 
 
-The main functionalities our program offer can be summarized as follow:
-  1) Mie theory calcualtion for spherical aprticle inclusions. For non-spherical inclusion, the user can input already calcualted spectral attenutaition properties (lambda, mu_s, mu_a, and g) by other numerical method such as COMSOL. Other cases like dye inclusions has been discussed in the article.
-  2) The user can insert multiple fluorescent particle inclusions in multi-layer with various light incednet sources for creating new colors or spectral shifting purposes for 1D systems, such strategy can be found in radiaitve cooling and energy harvesting applications. The software has the potential to be expanded to 2D and 3D systems as future develpments 
-  3) The user can insert uncertain optical properties by providing the standard deviation along with optical porpertei and how many runs desired for smooth intervals. The uncertaintly analysis is based on a derived equation of normal distrbution coupled with random number via the fundamnetal law of Monte Carlo ().
-  4) The software has been biult utilizing parallel processing for photon launching using Numba pacakge, despite the difficulties with 2D tensor reflectance, transmittance, and absorptance.
-  5) The metalic or polymeric substrates can be included.
-
-
-
-Recommendations for the input file format:
-  - The user should include the material optical proprerties txt files next to particle and medium keywords. Here is an example for input file txt:
-```
+Recommendations for Input File Format:
+- The user should include the material optical properties text files next to particle and medium keywords. Here is an example input file:
+- ```
   MC
   output: aaa_case_uncertainty_results
 
@@ -63,8 +70,7 @@ Recommendations for the input file format:
   std: 0
 ```
 
-- Another example in case the user insert uncertainty analysis:
-
+- Another example when the user includes uncertainty analysis:
 ```
   MC
   output: aaa_case_uncertainty_results
