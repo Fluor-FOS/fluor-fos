@@ -12,7 +12,7 @@ The main functionalities our program offers can be summarized as follows:
 
 4) **Parallel processing capabilities.** The software utilizes parallel processing for photon launching using the Numba package, despite the computational challenges associated with 2D tensor calculations for reflectance, transmittance, and absorptance.
    
-5) **Detailed absorptance mechanisms.** The output provides detailed spectral and solar‑weighted values for fluorescent absorptance—quantified either as absorbed photons or radiative relaxation—as well as losses associated with the fluorescent process, including quantum‑yield limitations and Stokes‑shift energy loss. It also distinguishes between ordinary reflectance and fluorescent reflectance (i.e., fluorescence emitted toward the source side), both of which are reported and used in the plotted results.
+5) **Different types of absorptances.** The output provides detailed spectral and solar‑weighted values for fluorescent absorptance—quantified either as absorbed photons or radiative relaxation—as well as losses associated with the fluorescent process, including quantum‑yield limitations and Stokes‑shift energy loss. It also distinguishes between ordinary reflectance and fluorescent reflectance (i.e., fluorescence emitted toward the source side), both of which are reported and used in the plotted results.
 
 6) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
 
