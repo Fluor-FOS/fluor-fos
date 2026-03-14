@@ -11,17 +11,19 @@ The main functionalities our program offers can be summarized as follows:
 3) **Uncertainty quantification.** Users can incorporate uncertain optical properties by providing the standard deviation along with optical properties and specifying the desired number of runs for smooth intervals. The uncertainty analysis is based on a derived equation combining normal distribution with random number generation via the fundamental principles of Monte Carlo methods.
 
 4) **Parallel processing capabilities.** The software utilizes parallel processing for photon launching using the Numba package, despite the computational challenges associated with 2D tensor calculations for reflectance, transmittance, and absorptance.
+   
+5) **Detailed absorptance mechanisms.** The output provides detailed spectral and solar‑weighted values for fluorescent absorptance—quantified either as absorbed photons or radiative relaxation—as well as losses associated with the fluorescent process, including quantum‑yield limitations and Stokes‑shift energy loss. It also distinguishes between ordinary reflectance and fluorescent reflectance (i.e., fluorescence emitted toward the source side), both of which are reported and used in the plotted results.
 
-5) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
+6) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
 
 The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily directed toward thermal and visual performance:
 
-1) **Spectral and average optical properties.** The spectral and average radiosity (reflectance and fluorescence), transmittance, and absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
+1) **Spectral and solar‑weighted optical properties.** The spectral and solar-weighted radiosity (reflectance and fluorescence), transmittance, and absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
 
 2) **Color prediction.** The predicted color is calculated using CIE standards given the spectral radiosity and incident spectral power.
 
 
-Recommendations for Input File Format:
+Recommendations for Input File.txt Format:
 - The user should include the material optical properties text files next to particle and medium keywords. Here is an example input file:
  ```
   MC
@@ -50,7 +52,6 @@ Recommendations for Input File Format:
   Start: 310
   End: 1000
   Interval: 3
-  Number_of_sims_uncertainty: 30
 
   Sim: 1
   Upper: 1
@@ -84,7 +85,7 @@ Recommendations for Input File Format:
 
   light: AM1555.txt
 
-  emit1:bsr_emis.txt #   a_green_emis    BSR_emis     emi1 is emission for particle 1    BSR_emis_check_black  CALS_emis_check_black
+  emit1:bsr_emis.txt #   emi1 is emission for particle 1
   excit_start_end1: 325,700
 
   emit2:cals_emis.txt # emi2 is emission for particle 2
