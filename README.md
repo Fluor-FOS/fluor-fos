@@ -1,6 +1,7 @@
 # Fluor-FOS
-Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters. The input file (input.txt) is needed to execute the main program file, and an example is shown in the repository. The program is written in Python and can be downloaded to run on any operating system.
-You can refer to our article for more details [].
+Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters. The input file (input.txt) is needed to execute the main program file, and an example is shown in the repository. The program is written in Python and can be downloaded to run on any operating system. You can refer to our article for more details [].
+
+The program is executed by running 'Main_fluor_gh_f.py', after which the user is prompted to provide the input file along with the optical‑property files for the matrix and filler materials.
 
 The main functionalities our program offers can be summarized as follows:
 
@@ -118,5 +119,102 @@ Recommendations for Input File.txt Format:
   VF: 10
   std: 0
 ```
+For multiple simulations, an input file for such purpose can be made in this format: 
+
+```
+MC
+output: aaa_case_valid_get_hub
+
+particle 1:  bsr_increases.txt  # 
+particle 2: a_clas_red.txt
+particle 3: Y2O3.txt
+matrix 1: acrylic.txt
+matrix 2: silicone.txt
+mesh: 1
+
+light: AM1555.txt
+
+emit1: BSR_emis.txt # 
+excit_start_end1: 312,900
+
+emit2:cals_emis.txt # emi2 is emission for particle 2
+excit_start_end2: 312, 900
+
+qy1: cals_qy.txt  #
+
+qy2: cals_qy.txt
 
 
+photons: 10000
+Start: 310
+End: 1000
+Interval: 5
+Number_of_sims_uncertainty: 60
+
+
+Sim: 1
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 1
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
+
+Sim: 2
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 10
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
+
+Sim: 3
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 20
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
+```
