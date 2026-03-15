@@ -1,184 +1,96 @@
-from numpy import amax, zeros, append, interp,loadtxt
-from numba import njit
+from numpy import interp
 
-# calculates length of each input set of particles and mediums
-@njit()
-def calc_length(particle, medium, plength, mlength, length):
-    for j in range(len(plength)):
-        plength[j] = length
-    for j in range(len(mlength)):
-        mlength[j] = length
-    for i in range(length-1, 0, -1):
-        for j in range(len(plength)):
-            if particle[j, i, 0] == 0:
-                plength[j] = i
-        for j in range(len(mlength)):
-            if medium[j, i, 0] == 0:
-                mlength[j] = i
-    return plength, mlength
+def solar_spectrum2(SS,QY,Tot,Fluor,Absorb_to_fluor,non_fluor_absorb,column1_values, column2_values, column4_values,columnrsp_values,columnabsorb_values,columntransmit_values):
+    rsp_total = 0
+    sol_total = 0
+    tot = 0  
+    sol_absorb = 0
+    radiosity = 0
+    absorbedd = 0
+    sol_tranmit =0
 
+    SS_absorb = 0
+    Qy_absorb = 0
+    Tot_aborb = 0
+    Fluor_ref = 0
+    Absorb_to_fluor_sum = 0
+    non_fluor_absorb_sum = 0 
+    for i in range(len(column1_values) - 1):
+        wave = (column1_values[i] + column1_values[i + 1]) / 2
 
-# calculates spacing for each particle and medium
-@njit()
-def calc_spacing(particle, medium, particle_spacing, medium_spacing, minimum, max, length):
-    # loops through each particle
-    for i in range(len(particle[:, 0, 0])):
-        # move wavelength over
-        particle_spacing[:, 0, i] = particle[i, :, 0]
-        # find min spacing on either side of a point
-        particle_spacing[0, 1, i] = particle[i, 1, 0] - particle[i, 0, 0]
-        for j in range(1, length - 1):
+        p_rsp = interp( wave , column1_values[i:i+1] , columnrsp_values[i:i+1] )
+        rsp_total += p_rsp * (column1_values[i+1] - column1_values[i]) 
 
-            particle_spacing[j, 1, i] = min(particle[i, j + 1, 0] - particle[i, j, 0],
-                                            particle[i, j, 0] - particle[i, j - 1, 0])
-            if particle[i, j + 1, 0] == 0:
-                particle_spacing[j, 1, i] = particle[i, j, 0] - particle[i, j - 1, 0]
-        particle_spacing[length - 1, 1, i] = particle[i, length - 1, 0] - particle[i, length - 2, 0]
-        # check min max
-        if particle[i, 0, 0] > minimum:
-            minimum = particle[i, 0, 0]
-        if amax(particle[i, :, 0]) < max:
-            max = amax(particle[i, :, 0])
-    # loops through each medium
-    for i in range(len(medium[:, 0, 0])):
-        # move wavelength over
-        medium_spacing[:, 0, i] = medium[i, :, 0]
-        # find min spacing on either side of a point
-        medium_spacing[0, 1, i] = medium[i, 1, 0] - medium[i, 0, 0]
-        for j in range(1, length - 1):
+        p = interp( wave , column1_values[i:i+1] , column2_values[i:i+1] )
+        sol_total += p * (column1_values[i+1] - column1_values[i]) 
 
-            medium_spacing[j, 1, i] = min(medium[i, j + 1, 0] - medium[i, j, 0], medium[i, j, 0] - medium[i, j - 1, 0])
-            if medium[i, j + 1, 0] == 0:
-                medium_spacing[j, 1, i] = medium[i, j, 0] - medium[i, j - 1, 0]
-        medium_spacing[length - 1, 1, i] = medium[i, length - 1, 0] - medium[i, length - 2, 0]
-        if medium[i, 0, 0] > minimum:
-            minimum = medium[i, 0, 0]
-        if amax(medium[i, :, 0]) < max:
-            max = amax(medium[i, :, 0])
-    return minimum, max, medium_spacing, particle_spacing
+        p_transmit = interp( wave , column1_values[i:i+1] , columntransmit_values[i:i+1] )
+        sol_tranmit += p_transmit * (column1_values[i+1] - column1_values[i])
+            
+        p_absorb = interp( wave , column1_values[i:i+1] , columnabsorb_values[i:i+1] )
+        sol_absorb += p_absorb * (column1_values[i+1] - column1_values[i]) 
 
+        p_SS_absorb = interp( wave , column1_values[i:i+1] , SS[i:i+1] )
+        SS_absorb += p_SS_absorb * (column1_values[i+1] - column1_values[i]) 
 
-# combines each one to find the minimum total spacing between all particles and mediums
-@njit()
-def calc_minimum_spacing(min_spacing, minimum, max, particle, medium, particle_spacing, medium_spacing, plength, mlength, length, mesh_percentage):
-    for i in range(10000):
-        min_spacing[0, i] = minimum + i*(max-minimum)/9999
+        p_Qy_absorb = interp( wave , column1_values[i:i+1] , QY[i:i+1] )
+        Qy_absorb += p_Qy_absorb * (column1_values[i+1] - column1_values[i]) 
 
-        min_spacing[1, i] = interp(min_spacing[0, i], particle_spacing[:plength[0], 0, 0], particle_spacing[:plength[0], 1, 0]) 
-        if len(particle[:, 0, 0]) > 1:
-            for j in range(1, len(particle[:, 0, 0])):
-                temp = interp(min_spacing[0, i], particle_spacing[:plength[j], 0, j], particle_spacing[:plength[j], 1, j])
-                if temp < min_spacing[1, i]:
-                    min_spacing[1, i] = temp
+        p_Tot_aborb = interp( wave , column1_values[i:i+1] , Tot[i:i+1] )
+        Tot_aborb += p_Tot_aborb * (column1_values[i+1] - column1_values[i]) 
+
+        p_Fluor_ref = interp( wave , column1_values[i:i+1] , Fluor[i:i+1] )
+        Fluor_ref += p_Fluor_ref * (column1_values[i+1] - column1_values[i])
+
+        p_Absorb_to_fluor_sum = interp( wave , column1_values[i:i+1] , Absorb_to_fluor[i:i+1] )
+        Absorb_to_fluor_sum += p_Absorb_to_fluor_sum * (column1_values[i+1] - column1_values[i]) 
+
+        p_non_fluor_absorb_sum = interp( wave , column1_values[i:i+1] , non_fluor_absorb[i:i+1] )
+        non_fluor_absorb_sum += p_non_fluor_absorb_sum * (column1_values[i+1] - column1_values[i]) 
+
+        wave_solar = (column1_values[i] + column1_values[i + 1]) / 2
+        p1_solar = interp( wave_solar , column1_values[i:i+1] , column4_values[i:i+1] )
+        tot += p1_solar * (column1_values[i+1] - column1_values[i])
+
+    radiosity = (sol_total + rsp_total) / tot
+    absorbedd = sol_absorb/tot
+    transmitt = sol_tranmit/tot
+
+    S = SS_absorb/tot
+    q = Qy_absorb/tot
+    to = Tot_aborb/tot
+    flur_ref = Fluor_ref/tot
+    absorb_fluo = Absorb_to_fluor_sum/tot
+    non_fluor_abso = non_fluor_absorb_sum/tot
+
+    return radiosity,absorbedd,transmitt,S,q,to,flur_ref,absorb_fluo,non_fluor_abso
 
 
-        for j in range(len(medium[:, 0, 0])):
-            for k in range(length):
-                temp = interp(min_spacing[0, i],medium_spacing[:mlength[j], 0, j], medium_spacing[:mlength[j], 1, j])
-                if temp < min_spacing[1, i]:
-                    min_spacing[1, i] = temp
-        min_spacing[1, i] *= 1/mesh_percentage
-    return min_spacing
-
-
-# create mesh of new wavelengths
-@njit()
-def create_mesh(mesh, minimum, max, min_spacing):
-    mesh[0] = minimum
-    wavelength = minimum
-    spacing = min_spacing[1, 0]
-    spot = 0
-    while wavelength < max:
-        # iterate to find spacing
-        check = False
-        spacing = interp(wavelength, min_spacing[0, :], min_spacing[1, :])
-        while check is False:
-
-            new_wavelength = wavelength + spacing
-            if new_wavelength > max:
-                break
-            for j in range(spot, 10000):
-                if new_wavelength > min_spacing[0, j]:
-                    if min_spacing[1, j] < spacing:
-                        spacing = min_spacing[1, j]
-                        spot = j
-                        break
-                else:
-                    check = True
-        for j in range(spot, 10000):
-            if (wavelength + spacing) < min_spacing[0, j]:
-                spot = j - 1
-                break
-        wavelength += spacing
-        mesh = append(mesh, wavelength)                 
-    mesh[-1] = max
-    return mesh
-
-
-# interpolate properties into new mesh
-@njit()
-def new_properties(particle2, medium2, plength, mlength, particle, medium, mesh):
-    for i in range(len(particle2[:, 0, 0])):
-        particle2[i, :, 0] = mesh[:]
-        for j in range(len(mesh)):
-            particle2[i, j, 1] = interp(particle2[i, j, 0], particle[i, :plength[i], 0], particle[i, :plength[i], 1]) 
-            particle2[i, j, 2] = interp(particle2[i, j, 0], particle[i, :plength[i], 0], particle[i, :plength[i], 2]) 
-            if len(particle2[i, j, :]) == 4:
-                particle2[i, j, 3] = interp(particle2[i, j, 0], particle[i, :plength[i], 0], particle[i, :plength[i], 3])
-    for i in range(len(medium2[:, 0, 0])):
-        medium2[i, :, 0] = mesh[:]
-        for j in range(len(mesh)):
-            medium2[i, j, 1] = interp(medium2[i, j, 0], medium[i, :mlength[i], 0], medium[i, :mlength[i], 1])
-            medium2[i, j, 2] = interp(medium2[i, j, 0], medium[i, :mlength[i], 0], medium[i, :mlength[i], 2])
-            if len(medium[i, j, :]) == 4:
-                medium2[i, j, 3] = interp(medium2[i, j, 0], medium[i, :mlength[i], 0], medium[i, :mlength[i], 3])
-    return particle2, medium2
-
-def interpolatee(particle, medium, length, mesh_percentage,Start, End, Interval):
-    particle_spacing = zeros((length, 2, len(particle[:, 0, 0])))
-    medium_spacing = zeros((length, 2, len(medium[:, 0, 0])))
-
-    # min and max are min and max wavelength within the range of every input
-    minimum = particle[0, 0, 0]
-    max = amax(particle[0, :, 0])   ##### max wavelength
-
-    # find length for each particle and medium
-    plength = zeros(len(particle[:, 0, 0]), dtype=int)
-    mlength = zeros(len(medium[:, 0, 0]), dtype=int)
-    plength, mlength = calc_length(particle, medium, plength, mlength, length)
-
-    minimum, max, medium_spacing, particle_spacing = calc_spacing(particle, medium, particle_spacing, medium_spacing, minimum, max, length)
-
-    # combine them all to one
-    min_spacing = zeros((2, 10000))
-    min_spacing = calc_minimum_spacing(min_spacing, minimum, max, particle, medium, particle_spacing, medium_spacing, plength,mlength, length, mesh_percentage)
-
-    # build new mesh with wavelengths based on minimum spacing
-    mesh = zeros(1)
-    mesh = create_mesh(mesh, minimum, max, min_spacing)
+def solar_spectrum(result1,wavelengths,solar_file,sim,length_result): 
     
-    particle2 = zeros((len(particle[:, 0, 0]), len(mesh), 4))
-    medium2 = zeros((len(medium[:, 0, 0]), len(mesh), 4))
-    particle2, medium2 = new_properties(particle2, medium2, plength, mlength, particle, medium, mesh)
-    start_wl= int(Start)
-    end_wl= int(End) 
-    step = int(Interval)
-    meshh=zeros(len(range(start_wl,end_wl,step)))  
-    for i in range (0,meshh.shape[0]):
-        meshh[i]=(start_wl+i*step)  
-    particle22 = zeros((len(particle2[:, 0, 0]), len(range(start_wl,end_wl,step)), 3))  
-    medium22 = zeros((len(medium2[:, 0, 0]), len(range(start_wl,end_wl,step)), 3)) 
-    for i in range(len(particle2[:, 0, 0])):
-        particle22[i, :, 0] = meshh[:]
-        for j in range(len(meshh)):
-            particle22[i,j,1]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 1])
-            particle22[i,j,2]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 2])                                                                                                                
-    for i in range(len(medium2[:, 0, 0])):
-        medium22[i, :, 0] = meshh[:]
-        for j in range(len(meshh)):
-            medium22[i,j,1]= interp(medium22[i, j, 0], medium2[i, :, 0], medium2[i, :, 1])
-            medium22[i,j,2]= interp(medium22[i, j, 0], medium2[i, :, 0], medium2[i, :, 2])
-    index=zeros(len(medium22[0,:,0]))
-    index[:]=(1000*meshh[:])           
-    return particle22, medium22,index 
+    if max(wavelengths) <30:
+        column1_values = wavelengths*1000
+    else:
+        column1_values = wavelengths
 
+    column2_values = result1[ sim * length_result : (sim+1)*length_result,1] 
+    columnrsp_values = result1[ sim * length_result : (sim+1)*length_result,3]   
+    columnabsorb_values = result1[ sim * length_result : (sim+1)*length_result,0] 
+    columntransmit_values = result1[ sim * length_result : (sim+1)*length_result,2] 
+    
+    SS = result1[ sim * length_result : (sim+1)*length_result,4] 
+    QY = result1[ sim * length_result : (sim+1)*length_result,5] 
+    Tot = result1[ sim * length_result : (sim+1)*length_result,6] 
+    Fluor = result1[ sim * length_result : (sim+1)*length_result,7] 
+    Absorb_to_fluor = result1[ sim * length_result : (sim+1)*length_result,8] 
+    non_fluor_absorb = result1[ sim * length_result : (sim+1)*length_result,9] 
+
+    column4_values = solar_file[:,1]
+    if max(solar_file[:,0]) > 50:
+        column3_values = solar_file[:,0]
+    else: 
+        column3_values = solar_file[:,0]*1000
+
+    column4_values_n =  interp( column1_values  , column3_values , column4_values )           
+    radiosity,absorbedd,transmitt,S,q,to,flur_ref,absorb_fluo,non_fluor_abso = solar_spectrum2(SS,QY,Tot,Fluor,Absorb_to_fluor,non_fluor_absorb,column1_values, column2_values, column4_values_n,columnrsp_values,columnabsorb_values,columntransmit_values)
+    return radiosity,absorbedd,transmitt,S,q,to,flur_ref,absorb_fluo,non_fluor_abso
