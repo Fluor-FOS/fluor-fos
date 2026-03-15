@@ -95,14 +95,14 @@ def main_loop(ptype_in,fluor_counting_all_Mie,particles, paint, acr, wave, r1, f
     qs_i = zeros(particles)
     qa_i = zeros(particles)
     asy_i = zeros(particles)
-    for i in range(len(wave)):                #######  wave, how it is distributed ??
+    for i in range(len(wave)):           
         # for particle
         n_p = paint[i, 1]
         k_p = paint[i, 2]
         m_p = complex(n_p, k_p)
 
         # for matrix
-        n_m = acr[i, 1]  #n_c  instead of acr[i,1]
+        n_m = acr[i, 1]  
         k_m = acr[i, 2]
         m_m = complex(n_m, k_m)
 
@@ -125,7 +125,7 @@ def main_loop(ptype_in,fluor_counting_all_Mie,particles, paint, acr, wave, r1, f
             if gamma < 1:
                 gamma = 1
             q2 = 0
-            cext = 0                       #######     why the cross section extinction is set to ZERO
+            cext = 0                       
             for k in range(int(nmax)):
                 q2 += cn[k] * (abs(an[k]) ** 2 + abs(bn[k]) ** 2)
                 temp = (an[k] + bn[k]) / (m_m ** 2)
@@ -141,8 +141,6 @@ def main_loop(ptype_in,fluor_counting_all_Mie,particles, paint, acr, wave, r1, f
             # compiled function for asymmetry parameter calculation
             asy_i[j] = asy_calc(nmax, an, bn, cn, qs_i, j)
 
-        #med_abs = 4*pi*k_m/wave[i]
-        # make sure to not add the qa of fluorscent particles to non-fluorescent particles
         qs = sum(qs_i)
         qa = sum(qa_i)
         asy = sum(asy_i)
@@ -156,64 +154,39 @@ def main_loop(ptype_in,fluor_counting_all_Mie,particles, paint, acr, wave, r1, f
         prop[1,i] = k_m
         if fluor == 0:    
             prop[2, i] = qa
-        # if fluor == 1 and again == 1: # fluor == 1 and 
-        #     prop[2, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 2: # fluor == 1 and 
-        #     prop[3, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 3: # fluor == 1 and 
-        #     prop[4, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 4: # fluor == 1 and 
-        #     prop[5, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 5: # fluor == 1 and 
-        #     prop[6, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 6: # fluor == 1 and 
-        #     prop[7, i] = qa   # fluorescent Absorption
-        prop[3, i] = 0 # 3
-        prop[4, i] = qs # 4
+        prop[3, i] = 0 # medium absorption
+        prop[4, i] = qs 
         prop[5, i] = asy
         prop[6, i] = thickness
         prop[7, i] = 0      ### by default is zero
-        if happens == 1: # fluor == 1 and
+        if happens == 1: 
             prop[7, i] = 1
         the_index_for_fluor = 0
         fluor_counting_all_Mie = np.sort(fluor_counting_all_Mie)
         for k in range(len(fluor_counting_all_Mie)):
             if ptype_in == fluor_counting_all_Mie[k]:
-                the_index_for_fluor = k
-
-                
-        if fluor == 1:# and again == 1: # fluor == 1 and 
+                the_index_for_fluor = k    
+        if fluor == 1:#
             prop[8 + the_index_for_fluor, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 2: # fluor == 1 and 
-        #     prop[8 + the_index_for_fluor, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 3: # fluor == 1 and 
-        #     prop[8 + the_index_for_fluor, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 4: # fluor == 1 and 
-        #     prop[8 + the_index_for_fluor, i] = qa   # fluorescent Absorption
-        # if fluor == 1 and again == 5: # fluor == 1 and 
-        #     prop[8 + the_index_for_fluor, i] = qa   # was 12   fluorescent Absorption
     
     return prop
 
-def move_prop_over(paint, acr, thickness,fluor,again):
+def move_prop_over(paint, acr, thickness,fluor,again,fluor_counting_all_Mie,ptype_in,number_of_fluor):
     wave = paint[:, 0]
-    prop = zeros((5, int(len(wave))))
+    prop = zeros((8 + int(number_of_fluor), int(len(wave))))
     prop[0, :] = acr[:, 1]
     prop[4, :] = paint[:, 2]*10000
     prop[5, :] = paint[:, 3]*paint[:, 2]*10000
 
     if fluor == 0:
         prop[2, :] = paint[:, 1]*10000
-    elif fluor ==1 and again ==1:
-        prop[8, :] = paint[:, 1]*10000
-    elif fluor ==1 and again ==2:
-        prop[9, :] = paint[:, 1]*10000
-    elif fluor ==1 and again ==3:
-        prop[10, :] = paint[:, 1]*10000
-    elif fluor ==1 and again ==4:
-        prop[11, :] = paint[:, 1]*10000
-    elif fluor ==1 and again ==5:
-        prop[12, :] = paint[:, 1]*10000
+    the_index_for_fluor = 0
+    fluor_counting_all_Mie = np.sort(fluor_counting_all_Mie)
+    for k in range(len(fluor_counting_all_Mie)):
+        if ptype_in == fluor_counting_all_Mie[k]:
+            the_index_for_fluor = k
+    if fluor ==1:
+        prop[8+the_index_for_fluor, :] = paint[:, 1]*10000
 
     prop[6, :] = thickness
     print('Please notice that the inserted attenuation properties will be used assuming the user already used effective mdium on the inserted attenuation properties based on the size and volume loading')
@@ -223,14 +196,12 @@ def move_prop_over(paint, acr, thickness,fluor,again):
 def mie_theory(ptype_in,fluor_counting_all_Mie,r1, fv1, paint, acr, thickness, dist, fluor, start_wl, index,happens,again,number_of_fluor,particle_type):
 
     if particle_type == 1:
-        prop = move_prop_over(paint, acr, thickness,fluor,again)
+        prop = move_prop_over(paint, acr, thickness,fluor,again,fluor_counting_all_Mie,ptype_in,number_of_fluor)
         return prop
 
     if all(dist) != 0:
         r1, fv1 = distribution(r1, fv1, dist)
 
-    # if dist != 0:
-    #     r1, fv1 = distribution(r1, fv1, dist)
     wave = paint[:, 0]
     prop = zeros(( 8 + int(number_of_fluor), int(len(wave))))    ### "5"    int(number_of_fluor)
     particles = int(len(r1))
@@ -275,91 +246,53 @@ def mie_theory(ptype_in,fluor_counting_all_Mie,r1, fv1, paint, acr, thickness, d
 
     return prop
 
-
-# def Mie_theory_fluo(r1, fv1, paint, acr, thickness, dist):
-
-
-
-
 @njit()
-def effective_medium(optics_sum, vol_frac_sum, acr,fluor,number_of_fluor,particle_type):
+def effective_medium(optics_sum, vol_frac_sum, acr,fluor,number_of_fluor,particle_type,ptype_in,fluor_counting_all_Mie):
     wave = acr[:, 0]
 
+    fluor_counting_all_Mie = np.sort(fluor_counting_all_Mie)
+    qa_flu_all = zeros(len(fluor_counting_all_Mie))
     for i in range(len(optics_sum[0, :])):
         asy = optics_sum[5, i]
-        qa_flu2 = 0
-        qa_flu3 = 0
-        qa_flu4 = 0
-        qa_flu5 = 0
+        for qa_f in range(len(qa_flu_all)):
+            qa_flu_all[qa_f] = optics_sum[8+qa_f, i]
         k_m = acr[i, 2]
         qs = optics_sum[4, i]
         med_abs = optics_sum[3, i]
-        qa_flu1 = optics_sum[8, i]
-        if number_of_fluor >1:
-            qa_flu2 = optics_sum[9, i]
-        if number_of_fluor >2:
-            qa_flu3 = optics_sum[10, i]
-        if number_of_fluor >3:
-            qa_flu4 = optics_sum[11, i]
-        if number_of_fluor >4:
-            qa_flu5 = optics_sum[12, i]
         qa = optics_sum[2, i]
-        #if fluor == 1:
-
         if qs == 0:
             asy = 0
         else:
             asy = asy/qs
         if particle_type == 0:
-            if vol_frac_sum > 0.08   :     #0.08 
+            if vol_frac_sum > 0.08 :  
                 cor = 1 + 1.5 * vol_frac_sum - 0.75 * (vol_frac_sum ** 2)
                 qs = qs * cor
                 qa = qa * cor
-                qa_flu1 = qa_flu1 * cor #(cor/1.797)
-                qa_flu2 = qa_flu2 * cor
-                qa_flu3 = qa_flu3 * cor
-                qa_flu4 = qa_flu4 * cor
-                qa_flu5 = qa_flu5 * cor
+                for qa_f in range(len(qa_flu_all)):
+                    qa_flu_all[qa_f] = qa_flu_all[qa_f]* cor
+
                 med_abs = 4 * pi * k_m * (10 ** 4) * (1 - vol_frac_sum) / wave[i]
             else:#
                 med_abs = 4 * pi * k_m * (10 ** 4) * (1 - vol_frac_sum) / wave[i]
         else: 
             med_abs = 4 * pi * k_m * (10 ** 4) * (1 - vol_frac_sum) / wave[i]
 
+        for qa_f in range(len(qa_flu_all)):
+            if  qa_flu_all[qa_f] < (10 ** -8):
+                qa_flu_all[qa_f] = 0
+    
         # checking for bugs
         if qa < (10 ** -8):
             qa = 0
-        if qa_flu1 < (10 ** -8):
-            qa_flu1 = 0
-        if qa_flu2 < (10 ** -8):
-            qa_flu2 = 0
-        if qa_flu3 < (10 ** -8):
-            qa_flu3 = 0
-        if qa_flu4 < (10 ** -8):
-            qa_flu4 = 0
-        if qa_flu5 < (10 ** -8):
-            qa_flu5 = 0
         if qs < (10 ** -8):
             qs = 0
         if med_abs < (10 ** -8):
             med_abs = 0
-
-        # fluor == 0 and ch4 ==1
         optics_sum[2, i] = qa
-        #fluor == 1 and ch3 == 1
-        optics_sum[8, i] = qa_flu1
-        if number_of_fluor >1:
-            optics_sum[9, i] = qa_flu2
-        if number_of_fluor >2:
-            optics_sum[10, i] = qa_flu3
-        if number_of_fluor >3:
-            optics_sum[11, i] = qa_flu4
-        if number_of_fluor >4:
-            optics_sum[12, i] = qa_flu5
+        for qa_f in range(len(qa_flu_all)):
+            optics_sum[8+qa_f, i] = qa_flu_all[qa_f]
         optics_sum[3, i] = med_abs
-        
-        #optics_sum[1, i] = qa
-        #optics_sum[2, i] = qa_flu
         optics_sum[4, i] = qs
         optics_sum[5, i] = asy
     return optics_sum
