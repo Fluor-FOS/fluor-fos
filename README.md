@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 ## Repository Structure
 
-The following source files are provided in the repository and must be placed in the **same working directory** as `a_Main_fluor_gh_f.py`:
+The following source files are provided in the repository. Upon executing `a_Main_fluor_gh_f.py`, all other modules are automatically called internally — **do not run the other Python files directly**.
 
 | File | Description |
 |------|-------------|
@@ -63,7 +63,10 @@ The following source files are provided in the repository and must be placed in 
 | `interpolatefluor_gh.py` | Spectral data interpolation |
 | `color_post_gh.py` | Color post-processing and visualization |
 
-All material-property input files (optical properties of matrix, filler materials, fluorescent emission profiles, and quantum yield property) should also be placed in the same directory.
+All source files and material-property input files must be placed in the **same working directory**. Material-property input files include:
+- Optical properties of matrix and filler materials
+- Fluorescent emission profiles
+- Quantum yield properties
 
 ---
 
