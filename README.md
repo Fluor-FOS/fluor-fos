@@ -1,7 +1,11 @@
 # Fluor-FOS
-Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters. The input file (input.txt) is needed to execute the main program file, and an example is shown in the repository. The program is written in Python and can be downloaded to run on any operating system. You can refer to our article for more details [].
+Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters.
 
-The program is executed by running 'Main_fluor_gh_f.py', after which the user is prompted to provide the input file along with the optical‑property files for the matrix and filler materials.
+The program requires an input file (input.txt) to execute the main script, and example input file of three cases are provided in the repository. All Python source files and material‑property files should be placed in the same working directory (or within the same Python environment) to ensure proper file access during execution.
+
+To run the program, users should first create a Python environment and install the required dependencies listed in requirements.txt in requirements folder. After installing the dependencies, the program is executed by running Main_fluor_gh_f.py, after which the user is prompted to provide the main input file along with the optical‑property files for the matrix and filler materials.
+The software is written in Python and can be downloaded and executed on any operating system. Additional details about the modeling framework and physical formulation can be found in our article [Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions].
+
 
 The main functionalities our program offers can be summarized as follows:
 
