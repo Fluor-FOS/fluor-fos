@@ -1,7 +1,7 @@
 MC
 output: Dual_layer_example
 
-particle 1: clas_red.txt  #  BSR.txt   a_green_phosphor
+particle 1: cals_red.txt  #  BSR.txt   a_green_phosphor
 particle 2: baso4.txt
 Matrix 1: acrylic.txt
 a
@@ -9,10 +9,10 @@ mesh: 1
 
 light: am15.txt
 
-emit1: clas_emis.txt #  
+emit1: cals_emis.txt #  
 excit_start_end1: 302,700
 
-qy1: clas_qy.txt  # 
+qy1: cals_qy.txt  # 
 
 photons: 2000
 Start: 300
