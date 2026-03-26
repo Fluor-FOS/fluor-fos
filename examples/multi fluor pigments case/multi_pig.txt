@@ -1,0 +1,94 @@
+MC
+output: aaa_case_valid_get_hub
+particle 1:  bsr_increases.txt  # 
+particle 2: a_clas_red.txt
+particle 3: Y2O3.txt
+matrix 1: acrylic.txt
+
+mesh: 1
+
+light: AM1555.txt
+
+emit1: BSR_emis.txt # 
+excit_start_end1: 312,900
+
+emit2:cals_emis.txt # emi2 is emission for particle 2
+excit_start_end2: 312, 900
+
+qy1: cals_qy.txt  # 
+
+qy2: cals_qy.txt
+
+
+photons: 10000
+Start: 310
+End: 1000
+Interval: 5
+Number_of_sims_uncertainty: 30
+
+
+Sim: 1
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 1
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
+
+Sim: 2
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 10
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
+
+Sim: 3
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+particle 1
+fluor: 1
+D: 5
+VF: 20
+std: 0.0
+particle 2
+fluor: 1
+D: 10
+VF: 10
+std: 0.0
+particle 3
+fluor: 0
+D: 0.4
+VF: 50
+std: 0.0
