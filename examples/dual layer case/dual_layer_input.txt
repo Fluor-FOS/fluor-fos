@@ -1,0 +1,81 @@
+MC
+output: Dual_layer_example
+
+particle 1: a_CLAS_red.txt  #  BSR.txt   a_green_phosphor
+particle 2: baso4.txt
+Matrix 1: acrylic.txt
+
+mesh: 1
+
+light: AM1555.txt
+
+emit1:CALS_emis.txt #  
+excit_start_end1: 302,700
+
+qy1: CALS_QY.txt  # 
+
+photons: 2000
+Start: 300
+End: 900
+Interval: 5
+Number_of_sims_uncertainty: 30
+
+Sim: 1
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 50
+Particle 1
+fluor: 1
+D: 10
+VF: 10
+Dist: 0
+Layer 2
+Matrix 1
+T: 700
+Particle 2
+fluor: 0
+D: 0.4
+VF: 60
+Dist: 0
+
+Sim: 2
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 100
+Particle 1
+fluor: 1
+D: 10
+VF: 10
+Dist: 0
+Layer 2
+Matrix 1
+T: 700
+Particle 2
+fluor: 0
+D: 0.4
+VF: 60
+Dist: 0
+
+Sim: 3
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 150
+Particle 1
+fluor: 1
+D: 10
+VF: 10
+Dist: 0
+Layer 2
+Matrix 1
+T: 700
+Particle 2
+fluor: 0
+D: 0.4
+VF: 60
+Dist: 0
