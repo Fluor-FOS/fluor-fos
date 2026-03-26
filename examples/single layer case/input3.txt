@@ -1,16 +1,15 @@
 MC
-output: aaa_case_valid_get_hub_tio2_green
+output: Single_layer_example
 
-particle 1: a_green_phosh_2.txt  #
-#particle 2: a_CLAS_red.txt  #
+particle 1: green.txt  #
 particle 2: tio2.txt
 Matrix 1: acrylic.txt
 
 mesh: 1
 
-light: AM1555.txt
+light: am15.txt
 
-emit1: a_green_emis2.txt # 
+emit1: green_emis.txt # 
 excit_start_end1: 302,900
 
 qy1: green_qy.txt  #
@@ -19,8 +18,6 @@ photons: 10000
 Start: 301
 End: 2490
 Interval: 2
-Number_of_sims_uncertainty: 30
-
 
 Sim: 1
 Upper: 1
