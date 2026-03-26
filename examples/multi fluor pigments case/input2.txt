@@ -1,5 +1,5 @@
 MC
-output: aaa_case_valid_get_hub
+output: Multiple_fluor_pigments_example
 particle 1:  bsr_red.txt  #  organic red
 particle 2: cals_red.txt # inorganic red
 particle 3: Y2O3.txt
@@ -17,7 +17,7 @@ excit_start_end2: 312, 900
 
 qy1: cals_qy.txt  # 
 
-qy2: cals_qy.txt
+qy2: bsr_qy.txt
 
 
 photons: 10000
