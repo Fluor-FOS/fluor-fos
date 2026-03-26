@@ -122,8 +122,6 @@ Recommendations for Input File.txt Format:
   particle 3: y2o3.txt
   matrix 1: acrylic.txt
 
-  mesh: 1
-
   light: AM1555.txt
 
   emit1:bsr_emis.txt # 
@@ -168,8 +166,6 @@ Recommendations for Input File.txt Format:
   particle 2: a_clas_red.txt
   particle 3: y2o3.txt
   matrix 1: acrylic.txt
-
-  mesh: 1
 
   light: AM1555.txt
 
@@ -217,7 +213,6 @@ particle 2: a_clas_red.txt
 particle 3: Y2O3.txt
 matrix 1: acrylic.txt
 matrix 2: silicone.txt
-mesh: 1
 
 light: AM1555.txt
 
