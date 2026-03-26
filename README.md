@@ -1,12 +1,84 @@
 # Fluor-FOS
 Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters.
 
-The program requires an input file (input.txt) to execute the main script, and example input file of three cases are provided in the repository. All Python source files and material‑property files should be placed in the same working directory (or within the same Python environment) to ensure proper file access during execution.
+## Requirements and Installation
 
-To run the program, users should first create a Python environment and install the required dependencies listed in requirements.txt in requirements folder. After installing the dependencies, the program is executed by running Main_fluor_gh_f.py, after which the user is prompted to provide the main input file along with the optical‑property files for the matrix and filler materials.
-The software is written in Python and can be downloaded and executed on any operating system. Additional details about the modeling framework and physical formulation can be found in our article [Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions].
+The software is written in Python 3.11 or later and is compatible with any operating system (Windows, macOS, Linux).
 
+### Python Dependencies
 
+The following packages are required:
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `numpy` | 1.23.5 | Array operations and numerical computing |
+| `scipy` | 1.14.1 | Special functions and numerical integration |
+| `numba` | 0.56.4 | JIT compilation for parallelized Monte Carlo |
+| `matplotlib` | 3.7.1 | Spectral property visualization and color display |
+
+### Option 1: pip (VS Code or any standard Python environment)
+
+Open a terminal in your working directory and run:
+```bash
+pip install -r requirements.txt
+```
+
+This will install all packages listed in `requirements.txt`. If any package fails to install, please ensure you have the required system dependencies installed.
+
+### Option 2: conda (Anaconda/Miniconda)
+
+1. Create a new conda environment:
+```bash
+conda create --name fluorfos python=3.11
+```
+
+2. Activate the environment:
+```bash
+conda activate fluorfos
+```
+
+3. Install the required packages using pip inside the conda environment:
+```bash
+pip install -r requirements.txt
+```
+
+> **Note:** `pip` is used inside the conda environment rather than `conda install` because packages such as `numba` are more reliably installed via `pip` than through conda's default channels.
+
+## Repository Structure
+
+The following source files are provided in the repository and must be placed in the **same working directory** as `a_Main_fluor_gh_f.py`:
+
+| File | Description |
+|------|-------------|
+| `a_Main_fluor_gh_f.py` | Main script — entry point for execution |
+| `a_MieTheory3fluor2_gh.py` | Mie theory calculations and effective medium corrections |
+| `a_montefluor_gh_f.py` | Parallelized Monte Carlo photon transport algorithm |
+| `Integration_fluor_gh.py` | Solar spectrum integration |
+| `interpolatefluor_gh.py` | Spectral data interpolation |
+| `color_post_gh.py` | Color post-processing and visualization |
+
+All material-property input files (optical properties of matrix and filler materials) should also be placed in the same directory.
+
+---
+
+## Running the Program
+
+Execute the main script by running:
+```bash
+python a_Main_fluor_gh_f.py
+```
+
+Upon execution, the user is prompted to provide:
+- The main input file (`input.txt`)
+- Optical-property files for the matrix and filler materials
+
+Example input files for three cases are provided in the repository.
+
+---
+Additional details about the modeling framework and physical formulation can be found in our article:
+*Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions*
+
+## Fluor-FOS Functionalities
 The main functionalities our program offers can be summarized as follows:
 
 1) **Mie theory calculations for spherical particle inclusions.** For non-spherical inclusions, users can input pre-calculated spectral attenuation properties (λ, μₛ, μₐ, and g) obtained from other numerical methods such as FEM (finite element method) and DDA (discrete dipole approximation). Other cases, such as dye inclusions, are discussed in the article.
@@ -21,12 +93,15 @@ The main functionalities our program offers can be summarized as follows:
 
 6) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
 
+## Output
 The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily directed toward thermal and visual performance:
 
-1) **Spectral and solar‑weighted optical properties.** The spectral and solar-weighted radiosity (reflectance and fluorescence), transmittance, and absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
+1) **Spectral and solar‑weighted optical properties.** The spectral and solar-weighted radiosity (reflectance and fluorescence), transmittance, and different types of absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
 
 2) **Color prediction.** The predicted color is calculated using CIE standards given the spectral radiosity and incident spectral power.
 
+
+## Input File Format
 
 Recommendations for Input File.txt Format:
 - The user should include the material optical properties text files next to particle and medium keywords. Here is an example input file:
