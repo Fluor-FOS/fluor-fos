@@ -1,6 +1,12 @@
 # Fluor-FOS
 Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optical modeling. The program can handle a variable number of layers, scattering particles, and fluorescent particles, all with distinct material and optical properties. This program is equipped with a user-friendly interface that allows users to insert particles and media, then arrange them in a multi-layer structure with adjustable structural parameters.
 
+## Authors and References
++ Khalid Alhammadi: alhammak@purdue.edu
++ Daniel Carne: dcarne@purdue.edu
++ Xiulin Ruan: ruan@purdue.edu
+
+Cite: *Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions* (In revision)
 ## Requirements and Installation
 
 The software is written in Python 3.11 or later and is compatible with any operating system (Windows, macOS, Linux).
@@ -57,7 +63,7 @@ The following source files are provided in the repository and must be placed in 
 | `interpolatefluor_gh.py` | Spectral data interpolation |
 | `color_post_gh.py` | Color post-processing and visualization |
 
-All material-property input files (optical properties of matrix and filler materials) should also be placed in the same directory.
+All material-property input files (optical properties of matrix, filler materials, fluorescent emission profiles, and quantum yield property) should also be placed in the same directory.
 
 ---
 
@@ -75,8 +81,6 @@ Upon execution, the user is prompted to provide:
 Example input files for three cases are provided in the repository.
 
 ---
-Additional details about the modeling framework and physical formulation can be found in our article:
-*Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions*
 
 ## Fluor-FOS Functionalities
 The main functionalities our program offers can be summarized as follows:
