@@ -1,0 +1,74 @@
+MC
+output: aaa_case_valid_get_hub_tio2_green
+
+particle 1: a_green_phosh_2.txt  #
+#particle 2: a_CLAS_red.txt  #
+particle 2: tio2.txt
+Matrix 1: acrylic.txt
+
+mesh: 1
+
+light: AM1555.txt
+
+emit1: a_green_emis2.txt # 
+excit_start_end1: 302,900
+
+qy1: green_qy.txt  #
+
+photons: 10000
+Start: 301
+End: 2490
+Interval: 2
+Number_of_sims_uncertainty: 30
+
+
+Sim: 1
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+Particle 1
+fluor: 1
+D: 10
+VF: 1
+Dist: 0
+Particle 2
+fluor: 0
+D: 0.4
+VF: 10
+Dist: 0
+
+Sim: 2
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+Particle 1
+fluor: 1
+D: 10
+VF: 10
+Dist: 0
+Particle 2
+fluor: 0
+D: 0.4
+VF: 10
+Dist: 0
+
+Sim: 3
+Upper: 1
+Lower: 1
+Layer 1
+Matrix 1
+T: 500
+Particle 1
+fluor: 1
+D: 10
+VF: 25
+Dist: 0
+Particle 2
+fluor: 0
+D: 0.4
+VF: 10
+Dist: 0
