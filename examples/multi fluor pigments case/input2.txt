@@ -7,7 +7,7 @@ matrix 1: acrylic.txt
 
 mesh: 1
 
-light: AM1555.txt
+light: am15.txt
 
 emit1: bsr_emis.txt # 
 excit_start_end1: 312,900
