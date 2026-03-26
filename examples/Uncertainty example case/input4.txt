@@ -1,17 +1,16 @@
 MC
-output: aaa_Uncertainty_analysis
+output: Uncertainty_analysis
 particle 1: clas_red.txt  
-#uncert_particle 1: BSR_uncer.txt ## first case
+uncert_particle 1: cals_red_uncert.txt ## first case
 particle 2: baso4.txt
 matrix 1: acrylic.txt
-mesh: 1
 
-light: AM15.txt
+light: am15.txt
 
-emit1: CALS_emis_new.txt #  
+emit1: cals_emistxt #  
 excit_start_end1: 300,650
 qy1: cals_qy.txt 
-uncert_qy1: bsr_qy_uncert.txt # second case with commenting 'uncert_particle 1' 
+#uncert_qy1: cals_qy_uncert.txt # second case with commenting 'uncert_particle 1' and uncommenting this input
 
 photons: 10000
 Start: 300
@@ -27,7 +26,7 @@ Matrix 1
 T: 200
 particle 1
 fluor: 1
-D: 1  # the size is set to 1 for phosphor
+D: 1  
 VF: 3
 std: 0
 particle 2
