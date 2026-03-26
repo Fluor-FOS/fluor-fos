@@ -1,7 +1,7 @@
 MC
 output: aaa_case_valid_get_hub
-particle 1:  bsr_increases.txt  # 
-particle 2: a_clas_red.txt
+particle 1:  bsr_red.txt  #  organic red
+particle 2: cals_red.txt # inorganic red
 particle 3: Y2O3.txt
 matrix 1: acrylic.txt
 
@@ -9,7 +9,7 @@ mesh: 1
 
 light: AM1555.txt
 
-emit1: BSR_emis.txt # 
+emit1: bsr_emis.txt # 
 excit_start_end1: 312,900
 
 emit2:cals_emis.txt # emi2 is emission for particle 2
