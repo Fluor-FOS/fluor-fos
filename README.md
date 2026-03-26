@@ -79,9 +79,9 @@ python a_Main_fluor_gh_f.py
 
 Upon execution, the user is prompted to provide:
 - The main input file (`input.txt`)
-- Optical-property files for the matrix and filler materials
+- Ensure that the optical‑property files for the matrix materials, filler materials, fluorescent emission profiles, and quantum yield are located in the same directory.
 
-Example input files for three cases are provided in the repository.
+Example input files for three test cases and one uncertainty‑analysis case are provided in the ‘examples’ folder of the repository.
 
 ---
 
@@ -111,9 +111,10 @@ The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily d
 ## Input File Format
 
 Recommendations for Input File.txt Format:
-- The user should include the material optical properties text files next to particle and medium keywords. Here is an example input file:
+- nclude the material optical‑property text files next to the particle and medium keywords. The keywords before the ‘:’ must remain unchanged, as they are recognized by the program. An exception is the numbering of particle, matrix, quantum‑yield, and emission entries (e.g., particle 1:, particle 2:, matrix 1:, matrix 2:, qy1:, qy2:, emit1:, emit2:), which may be incremented or adjusted as needed. The number following emit and qy must correspond to the particle number of the fluorescent pigment (e.g., emit1 and qy1 refer to particle 1). All text appearing after the ‘:’ may be modified by the user. Here is an example input file:
+
  ```
-  MC
+  MC 
   output: aaa_case_uncertainty_results
 
   particle 1: bsr.txt  #
