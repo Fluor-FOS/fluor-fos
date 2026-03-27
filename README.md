@@ -22,16 +22,15 @@ The following packages are required:
 | `numba` | 0.56.4 | JIT compilation for parallelized Monte Carlo |
 | `matplotlib` | 3.7.1 | Spectral property visualization and color display |
 
-### Option 1: pip (VS Code or any standard Python environment)
+### Option 1: pip (VS Code)
 
-Open a terminal in your working directory and run:
+After setting up your environment, install the required packages by running:
 ```bash
 pip install -r requirements.txt
 ```
-
 This will install all packages listed in `requirements.txt`. If any package fails to install, please ensure you have the required system dependencies installed.
 
-### Option 2: conda (Anaconda/Miniconda)
+### Option 2: conda (Anaconda Navigator/Miniconda)
 
 1. Create a new conda environment:
 ```bash
@@ -48,7 +47,6 @@ conda activate fluorfos
 pip install -r requirements.txt
 ```
 
-> **Note:** `pip` is used inside the conda environment rather than `conda install` because packages such as `numba` are more reliably installed via `pip` than through conda's default channels.
 
 ## Repository Structure
 
