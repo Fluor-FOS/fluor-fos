@@ -110,19 +110,19 @@ The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily d
 
 ## Input File Format
 
-Recommendations for Input File.txt Format:
+Instructions for Input File.txt Format:
 - Include the material optical‑property text files next to the particle and medium keywords. The keywords before the ‘:’ must remain unchanged, as they are recognized by the program. An exception is the numbering of particle, matrix, quantum‑yield, and emission entries (e.g., particle 1:, particle 2:, matrix 1:, matrix 2:, qy1:, qy2:, emit1:, emit2:), which may be incremented or adjusted as needed. The number following emit, excit_start_end and qy must correspond to the particle number of the fluorescent pigment (e.g., emit1, excit_start_end1 and qy1 refer to particle 1). All text appearing after the ‘:’ may be modified by the user. Here is an example input file:
 
  ```
   MC 
-  output: aaa_case_uncertainty_results
+  output: multi_pigment_ex
 
-  particle 1: bsr.txt  #
-  particle 2: a_clas_red.txt
+  particle 1: bsr_red.txt  #
+  particle 2: cals_red.txt
   particle 3: y2o3.txt
   matrix 1: acrylic.txt
 
-  light: AM1555.txt
+  light: am15.txt
 
   emit1:bsr_emis.txt # 
   excit_start_end1: 325,700
@@ -135,7 +135,7 @@ Recommendations for Input File.txt Format:
   qy2: cals_qy.txt
 
   photons: 01
-  Start: 310
+  Start: 300
   End: 1000
   Interval: 3
 
@@ -160,10 +160,10 @@ Recommendations for Input File.txt Format:
 
 ```
   MC
-  output: aaa_case_uncertainty_results
+  output: uncertainty_results
 
-  particle 1: bsr.txt  #  BSR.txt   a_green_phosphor   BSR_check_black  a_CLAS_red_check_black
-  particle 2: a_clas_red.txt
+  particle 1: bsr_red.txt  #
+  uncert_particle 1: bsr_red_uncert.txt
   particle 3: y2o3.txt
   matrix 1: acrylic.txt
 
@@ -172,12 +172,7 @@ Recommendations for Input File.txt Format:
   emit1:bsr_emis.txt #   emi1 is emission for particle 1
   excit_start_end1: 325,700
 
-  emit2:cals_emis.txt # emi2 is emission for particle 2
-  excit_start_end2: 325, 700
-
   qy1: bsr_qy.txt  # BSR_QY.txt ba2SiO4Eu2_QY.txt
-
-  qy2: cals_qy.txt
 
   photons: 01
   Start: 310
@@ -206,23 +201,23 @@ For multiple simulations, an input file for such purpose can be made in this for
 
 ```
 MC
-output: aaa_case_valid_get_hub
+output: multiple_sims
 
-particle 1:  bsr_increases.txt  # 
-particle 2: a_clas_red.txt
+particle 1:  bsr_red.txt  # 
+particle 2: clas_red.txt
 particle 3: Y2O3.txt
 matrix 1: acrylic.txt
 matrix 2: silicone.txt
 
-light: AM1555.txt
+light: am15.txt
 
-emit1: BSR_emis.txt # 
+emit1: bsr_emis.txt # 
 excit_start_end1: 312,900
 
 emit2:cals_emis.txt # emi2 is emission for particle 2
 excit_start_end2: 312, 900
 
-qy1: cals_qy.txt  #
+qy1: bsr_qy.txt  #
 
 qy2: cals_qy.txt
 
@@ -231,8 +226,6 @@ photons: 10000
 Start: 310
 End: 1000
 Interval: 5
-Number_of_sims_uncertainty: 60
-
 
 Sim: 1
 Upper: 1
