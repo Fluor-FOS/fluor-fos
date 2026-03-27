@@ -19,7 +19,7 @@ The following packages are required:
 |---------|---------|---------|
 | `numpy` | 1.23.5 | Array operations and numerical computing |
 | `scipy` | 1.14.1 | Special functions and numerical integration |
-| `numba` | 0.56.4 | JIT compilation for parallelized Monte Carlo |
+| `numba` | 0.57.1 | JIT compilation for parallelized Monte Carlo |
 | `matplotlib` | 3.7.1 | Spectral property visualization and color display |
 
 ### Option 1: pip (VS Code)
