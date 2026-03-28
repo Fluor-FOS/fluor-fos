@@ -77,9 +77,8 @@ python Main_fluor_gh_f.py
 
 Upon execution, the user is prompted to provide:
 - The main input file (`input.txt`)
-- Ensure that the optical‑property files for the matrix materials, filler materials, fluorescent emission profiles, and quantum yield are located in the same directory.
 
-Example input files for three test cases and one uncertainty‑analysis case are provided in the ‘examples’ folder of the repository.
+Ensure that the optical‑property files for the matrix materials, filler materials, fluorescent emission profiles, and quantum yield are located in the same directory. Example input files for three test cases and one uncertainty‑analysis case are provided in the ‘examples’ folder of the repository.
 
 ---
 
