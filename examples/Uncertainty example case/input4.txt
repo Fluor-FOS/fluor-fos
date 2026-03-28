@@ -1,7 +1,7 @@
 MC
 output: Uncertainty_analysis
 particle 1: clas_red.txt  
-uncert_particle 1: cals_red_uncert.txt ## first case
+uncert_particle 1: cals_uncert.txt ## first case
 particle 2: baso4.txt
 matrix 1: acrylic.txt
 
