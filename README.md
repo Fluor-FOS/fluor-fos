@@ -72,7 +72,7 @@ All source files and material-property input files must be placed in the **same 
 
 Execute the main script by running:
 ```bash
-python a_Main_fluor_gh_f.py
+python Main_fluor_gh_f.py
 ```
 
 Upon execution, the user is prompted to provide:
