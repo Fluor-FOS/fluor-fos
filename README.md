@@ -9,7 +9,7 @@ Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optic
 Cite: *Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions* (In revision)
 ## Requirements and Installation
 
-The software is written in Python 3.11 or later and is compatible with any operating system (Windows, macOS, Linux).
+The software is written in Python 3.11 and is compatible with any operating system (Windows, macOS, Linux).
 
 ### Python Dependencies
 
@@ -17,9 +17,9 @@ The following packages are required:
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `numpy` | 1.23.5 | Array operations and numerical computing |
+| `numpy` | 1.26.4 | Array operations and numerical computing |
 | `scipy` | 1.14.1 | Special functions and numerical integration |
-| `numba` | 0.57.1 | JIT compilation for parallelized Monte Carlo |
+| `numba` | 0.60.0 | JIT compilation for parallelized Monte Carlo |
 | `matplotlib` | 3.7.1 | Spectral property visualization and color display |
 
 ### Option 1: pip (VS Code)
