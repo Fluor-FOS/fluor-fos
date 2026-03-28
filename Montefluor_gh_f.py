@@ -518,7 +518,7 @@ def main_mc(prop, photons, index, start_wl, qy_all, emission_all,number_of_fluor
                     skip_register = True
                     count_per_sims =0
           
-                    print('calcuatign spectral radiative properties')
+                    print('calculating spectral radiative properties')
                     print (count_per_sims)
                     get_number_layer[num_sims] = get_it
                     num_sims += 1
