@@ -50,13 +50,13 @@ pip install -r requirements.txt
 
 ## Repository Structure
 
-The following source files are provided in the repository. Upon executing `a_Main_fluor_gh_f.py`, all other modules are automatically called internally — **do not run the other Python files directly**.
+The following source files are provided in the repository. Upon executing `Main_fluor_gh_f.py`, all other modules are automatically called internally — **do not run the other Python files directly**.
 
 | File | Description |
 |------|-------------|
-| `a_Main_fluor_gh_f.py` | Main script — entry point for execution |
-| `a_MieTheory3fluor2_gh.py` | Mie theory calculations and effective medium corrections |
-| `a_montefluor_gh_f.py` | Parallelized Monte Carlo photon transport algorithm |
+| `Main_fluor_gh_f.py` | Main script — entry point for execution |
+| `MieTheory3fluor2_gh.py` | Mie theory calculations and effective medium corrections |
+| `Montefluor_gh_f.py` | Parallelized Monte Carlo photon transport algorithm |
 | `Integration_fluor_gh.py` | Solar spectrum integration |
 | `interpolatefluor_gh.py` | Spectral data interpolation |
 | `color_post_gh.py` | Color post-processing and visualization |
