@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ## Repository Structure
 
-The following source files are provided in the repository. Upon executing `Main_fluor_gh_f.py`, all other modules are automatically called internally — **do not run the other Python files directly**.
+The following source files are provided in the repository. Upon executing `Main_fluor_gh_f.py`, all other modules are automatically called internally.
 
 | File | Description |
 |------|-------------|
