@@ -1,24 +1,23 @@
 MC
 output: Dual_layer_example
 
-particle 1: a_CLAS_red.txt  # 
+particle 1: cals_red.txt  #  BSR.txt   a_green_phosphor
 particle 2: baso4.txt
 Matrix 1: acrylic.txt
 
 mesh: 1
 
-light: AM15.txt
+light: am15.txt
 
-emit1:CALS_emis.txt #  
+emit1: cals_emis.txt #  
 excit_start_end1: 302,700
 
-qy1: CALS_QY.txt  # 
+qy1: cals_qy.txt  # 
 
 photons: 2000
 Start: 300
 End: 900
 Interval: 5
-Number_of_sims_uncertainty: 30
 
 Sim: 1
 Upper: 1
