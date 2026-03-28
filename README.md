@@ -102,7 +102,7 @@ The Fluor-FOS output for a given nanocomposite multi-layer medium is primarily d
 
 1) **Spectral and solar‑weighted optical properties.** The spectral and solar-weighted radiosity (reflectance and fluorescence), transmittance, and different types of absorptance are provided, tunable with the wavelength range specified by the user (ensuring the wavelength range covers both excitation and emission).
 
-2) **Color prediction.** The predicted color is calculated using CIE standards given the spectral radiosity and incident spectral power.
+2) **Color prediction.** The predicted color is calculated using CIE standards using the spectral radiosity output and incident spectral power.
 
 
 ## Input File Format
