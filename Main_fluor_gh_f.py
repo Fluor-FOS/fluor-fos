@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.       
 from numpy import loadtxt, zeros, append, vstack, asarray, dstack, round,  interp, sum ,arange ,random
 import numpy as np
-from MieTheory3fluor2_gh import mie_theory, effective_medium 
-from Montefluor_gh_f import main_mc 
+from a_MieTheory3fluor2_gh import mie_theory, effective_medium 
+from a_montefluor_gh_f import main_mc 
 from Integration_fluor_gh import solar_spectrum 
 import os.path
 import matplotlib.pyplot as plt
@@ -1753,7 +1753,7 @@ def main_func():
         #display_color_from_reflectance(R_results,output_name=str(output_name)+'_color', i = 1)
         display_color_from_reflectance(R_results,wavelengths,output_name=str(output_name)+'_color', i = sim_conunt)
     print("Results saved! The spectral radiative properties plots are saved via _plot and color is saved via _color ")
-    print("Thank you for using our program. Had you have any questions or issues, ask me on Github!")
+    print("Thank you for using our program. If you have any questions or issues, feel free to ask me on GitHub!")
     return
 
 if __name__ == "__main__":
