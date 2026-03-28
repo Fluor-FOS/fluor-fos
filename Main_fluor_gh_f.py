@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.       
 from numpy import loadtxt, zeros, append, vstack, asarray, dstack, round,  interp, sum ,arange ,random
 import numpy as np
-from MieTheory3fluor2_gh import mie_theory, effective_medium 
-from Montefluor_gh_f import main_mc 
+from a_MieTheory3fluor2_gh import mie_theory, effective_medium 
+from a_montefluor_gh_f import main_mc 
 from Integration_fluor_gh import solar_spectrum 
 import os.path
 import matplotlib.pyplot as plt
@@ -290,6 +290,9 @@ def import_header(infile,check):
                 if medium[i, j, 0] < (particle[0, j, 0] - 0.001) or medium[i, j, 0] > (particle[0, j, 0] + 0.001):
                     need_interp = True
         check = check_material_wavelength_range(particle, medium, check, Start, End)
+        if check == True : 
+            print("File not found. Make sure the material optical properteis files are in the same directory as this program.")
+            main_func()
         if check == False:
             if need_interp is True:
                 print('Interpolating properties to match wavelengths for each input')
@@ -326,10 +329,10 @@ def get_index(number, type, p_num, m_num):
     return index
 
 def check_dist(current_sim, dist, check):
-    # if all(dist) != 0:
-    #     print('Std must be 0 for core shell sim', current_sim)
-    #     print("Please re-enter input file once corrected.")
-    #     check = True
+    if all(dist) != 0:
+        print('Std must be 0 for core shell sim', current_sim)
+        print("Please re-enter input file once corrected.")
+        check = True
     return check
 
 def create_prop_array(upper_is_air,lower_is_air,prop, particle, upper, lower, upper_type, lower_type, layers, optical_per_layer, medium,number_of_fluor):
