@@ -266,6 +266,9 @@ def import_header(infile,check):
     medium_uncert = m_uncert # zeros((len(m_uncert), length, 3))
     particle_type = zeros(len(p))
     need_interp = False
+    if check == True : 
+        print("Material optical properteis are not found. Make sure the files are in the same directory as this program.")
+        main_func()
     if check == False:
         for i in range(len(p)):
             temp = loadtxt(p[i])
@@ -291,7 +294,7 @@ def import_header(infile,check):
                     need_interp = True
         check = check_material_wavelength_range(particle, medium, check, Start, End)
         if check == True : 
-            print("File not found. Make sure the material optical properteis files are in the same directory as this program.")
+            print("Material optical properteis files are not found. Make sure the files are in the same directory as this program.")
             main_func()
         if check == False:
             if need_interp is True:
