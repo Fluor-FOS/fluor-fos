@@ -4,7 +4,7 @@ output: Dual_layer_example
 particle 1: cals_red.txt  #  BSR.txt   a_green_phosphor
 particle 2: baso4.txt
 Matrix 1: acrylic.txt
-a
+
 mesh: 1
 
 light: am15.txt
