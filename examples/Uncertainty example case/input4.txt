@@ -7,7 +7,7 @@ matrix 1: acrylic.txt
 
 light: am15.txt
 
-emit1: cals_emistxt #  
+emit1: cals_emis.txt #  
 excit_start_end1: 300,650
 qy1: cals_qy.txt 
 #uncert_qy1: cals_qy_uncert.txt # second case with commenting 'uncert_particle 1' and uncommenting this input
