@@ -15,9 +15,9 @@ excit_start_end1: 312,900
 emit2:cals_emis.txt # emi2 is emission for particle 2
 excit_start_end2: 312, 900
 
-qy1: cals_qy.txt  # 
+qy1: bsr_qy.txt  # 
 
-qy2: bsr_qy.txt
+qy2: cals_qy.txt
 
 
 photons: 10000
