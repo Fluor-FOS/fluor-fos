@@ -1,0 +1,1 @@
+In this example, we illustrate the uncertainty case in which the refractive index is perturbed according to the standard‑deviation values specified in the _uncert text file. The resulting upper and lower bounds for the three spectral radiative properties—normalized radiosity, absorptance, and transmittance—are plotted.
