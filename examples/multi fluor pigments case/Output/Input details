@@ -1,0 +1,4 @@
+In this example, we illustrate the mulitple fluorescent inclusions case in which the structural parameters (a solid volume fraction of one of the fluorescent pigment) is changed. 
+Note that additional multiple fluorescent pigment inclusions can also be incorporated. 
+The simulation output text file, the spectral radiative‑properties plot, the spectral‑flux plot, and the plot of the different forms of absorptance—combined into a 
+single figure—are shown, along with their corresponding color appearance.
