@@ -1,0 +1,4 @@
+In this example, we illustrate the single layer case in which the structural parameters (the solid volume fraction of fluorescent green pigment) is varied. 
+Note that additional layers and multiple fluorescent and non-fluorescent pigment inclusions can also be incorporated. 
+The simulation output text file, the spectral radiative‑properties plot, the spectral‑flux plot, and the plot of the different forms of
+absorptance—combined into a single figure—are shown, along with their corresponding color appearance. 
