@@ -1,4 +1,4 @@
-In this example, we illustrate the dual‑layer case in which the structural parameters of both layers are varied. 
+In this example, we illustrate the dual‑layer case in which a structural parameters (top thickness) is varied. 
 Note that additional layers and multiple non-fluorescent pigment inclusions can also be incorporated. 
 The simulation output text file, the spectral radiative‑properties plot, the spectral‑flux plot, and the plot of the different forms of
 absorptance—combined into a single figure—are shown, along with their corresponding color appearance.
