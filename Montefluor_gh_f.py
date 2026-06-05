@@ -302,8 +302,9 @@ def initialize_photon(start_wl,layer, rsp, prop, ind, qy_all, emission_all,numbe
                         prob_f = qy_all[i + correcting_qy_fluor,kkk]* ( prop[correcting_index , 8+i] )
                         sa = (qy_all[i + correcting_qy_fluor,kkk]* prop[correcting_index , 8+i] + sum_cumulitive1)/( sum_all_non_fluo + ua + beta_nonf)
                         if (sa) > random.random_sample():
+    
                             skip = 1
-                            correcting_emis_index = number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
+                            correcting_emis_index = 2*i + number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
                             re_emit = True
                             wavelength_old = (kkk*stepp)+start_wl 
 
@@ -518,7 +519,7 @@ def main_mc(prop, photons, index, start_wl, qy_all, emission_all,number_of_fluor
                     skip_register = True
                     count_per_sims =0
           
-                    print('calculating spectral radiative properties')
+                    print('calcuatign spectral radiative properties')
                     print (count_per_sims)
                     get_number_layer[num_sims] = get_it
                     num_sims += 1
