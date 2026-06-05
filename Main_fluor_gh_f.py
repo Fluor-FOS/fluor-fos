@@ -750,7 +750,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                     length_after = len(arange(temp[0,0], temp[-1,0] ) )
             emission_all = zeros((number_of_fluor*2*layers, length_after +1)) 
             qy_all = zeros((number_of_fluor*layers, len(index)))
-            
+
             if fluor == 1:
                 emissio_intt = append(emissio_intt, ptype)
             emissio_intt = append(emissio_intt, 0)
@@ -1187,8 +1187,6 @@ def optical(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_uncert,fluo
                 emissio_intt = append(emissio_intt, ptype)
             emissio_intt = append(emissio_intt, 0)
             i = -1
-
-            print(emissio_intt)
             
             for kk in range(len(emissio_intt)): 
                 if emissio_intt[kk] ==0:
@@ -1422,21 +1420,7 @@ def main_func():
     if (infile[0][0:2]).lower() == "mc":
         solar_file = loadtxt(solar)
         if uncert == True:
-            sims = counting_sims_uncert 
-
-        with open("a_check_emission_reviewer", 'w') as f:
-            for ii in range(len(emission_all[:,0])):
-                for iii in range(len(emission_all[0,:])):
-                    f.write(str(round(emission_all[ii,iii], 6))  + '\t' )
-                f.write('\n')
-        f.close()  
-        with open("a_check_qy_reviewer", 'w') as f:
-            for ii in range(len(qy_all[:,0])):
-                for iii in range(len(qy_all[0,:])):
-                    f.write(str(round(qy_all[ii,iii], 6))  + '\t' )
-                f.write('\n')
-        f.close() 
-         
+            sims = counting_sims_uncert      
         result1 ,result1_radiosity,get_num= main_mc(prop, photons, index, start_wl, qy_all, emission_all,number_of_fluor,sims,length_per_sim,solar_file,Interval,layers_per_sim) 
         check = False   
     else:
