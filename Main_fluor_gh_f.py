@@ -376,7 +376,6 @@ def create_prop_array(upper_is_air,lower_is_air,prop, particle, upper, lower, up
             prop = vstack((prop, [medium[int(lower_type), j, 1], medium[int(lower_type), j, 2], 0,0, 0, 0,0,0] +[0]* number_of_fluor))
             prop = vstack((prop, [0, 0, 0,0, 0, 0,0,0] +[0]* number_of_fluor ))
     return prop
-
 def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_uncert,fluor_counting_all_Mie,line, infile, particle, medium, check, start_wl, index,Quantum_Yiel_all,emissio,emissio_int,Quantum_Yiel_all_int,values_array,Start,Interval,number_of_fluor, p_num, m_num, particle_type,END,particle_uncert,medium_uncert,p_num_uncert,m_num_uncert,p_uncert,m_uncert):
 
     prop = zeros((0, 8 + int(number_of_fluor)))   
@@ -552,7 +551,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                 dist = dist/100
         elif infile[i][0:5] == "layer" and infile[i][5:] != "1":
             stadard_devi = zeros((0,2))
-            check = check_dist(current_sim, dist, check)
+            #check = check_dist(current_sim, dist, check)
             ptype_in = get_index(ptype, 'p', p_num, m_num)
             check = check_diameters(current_sim, fv, sizes, check, particle_type[ptype_in], dist)
             layers += 1
@@ -650,7 +649,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
             stadard_devi = zeros((0,2))
             counting_sims_uncert += 1
             current_sim = int(infile[i][4:])  
-            check = check_dist(current_sim, dist, check)
+            #check = check_dist(current_sim, dist, check)
             ptype_in = get_index(ptype, 'p', p_num, m_num)
             check = check_diameters(current_sim, fv, sizes, check, particle_type[ptype_in], dist)
             mtype_in = get_index(mtype, 'm', p_num, m_num)
@@ -750,7 +749,6 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                     length_after = len(arange(temp[0,0], temp[-1,0] ) )
             emission_all = zeros((number_of_fluor*2*layers, length_after +1)) 
             qy_all = zeros((number_of_fluor*layers, len(index)))
-
             if fluor == 1:
                 emissio_intt = append(emissio_intt, ptype)
             emissio_intt = append(emissio_intt, 0)
@@ -760,6 +758,8 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                     i += 1
                     emissio_intt_temp =np.sort(organi_lay_emis)
                     z = int(emissio_intt[kk])
+                    print(emissio_intt)
+                    
                     for j in range(len(emissio_intt_temp)): 
                         for kkk in range(len(emissio_int)):
                             if emissio_intt_temp[j] == emissio_int[kkk]:
@@ -774,10 +774,14 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                 emission_all[2*kkk+ number_of_fluor*2*(i) ,-1] = e
                                 temp_2 = loadtxt(Quantum_Yiel_all[kkk]) # Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_uncert,
                                 nc = 0
+                                
                                 for g in range(len(Quantum_Yiel_all_int_uncert)):
                                     if Quantum_Yiel_all_int_uncert[g] == emissio_int[kkk]:
                                         nc = 1
                                         temp_2_uncert =  loadtxt(Quantum_Yiel_all_uncert[g])
+
+                                print(nc)
+                                
                                 if (temp_2.size) >1 : 
                                     if max(temp_2[:,0]) < 30: 
                                         new_QY=interp(index[:], temp_2[:,0]*1000, temp_2[:,1])
@@ -785,6 +789,8 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                         new_QY=interp(index[:], temp_2[:,0], temp_2[:,1])
                                     if nc ==1:
                                         if (temp_2_uncert.size) >1 :
+                                            print('here at sim2,3,4')
+                                            
                                             if max(temp_2_uncert[:,0]) < 30: 
                                                 new_QY_uncert = interp(index[:], temp_2_uncert[:,0]*1000, temp_2_uncert[:,1])
                                             else:
@@ -805,13 +811,21 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                             else:
                                                 term_qy = -new_QY_uncert * erfinv(random.random_sample() )
                                             final = new_QY + term_qy
-                                            if final >1:
-                                                final = 1
-                                            if final < 0:
-                                                final = 0                                        
-                                        qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = final
+                                            for unr in range(len(final)):
+                                                if final[unr] >1:
+                                                    final[unr] = 1
+                                                if final[unr] < 0:
+                                                    final[unr] = 0                                        
+                                        #qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = final
+                                        for count in range(len(index)):
+                                            if index[count] >= int(values_array[2*(kkk)]) or index[count]<= int(values_array[(2*(kkk))+1]): 
+                                                qy_all[kkk+ number_of_fluor*(i), count] = final[count]  
                                     else:
-                                        qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = new_QY
+                                        #qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = new_QY
+                                        for count in range(len(index)):
+                                            if index[count] >= int(values_array[2*(kkk)]) or index[count]<= int(values_array[(2*(kkk))+1]): 
+                                                qy_all[kkk+ number_of_fluor*(i), count] = new_QY[count]  
+                                        
                                 else:
                                     if int(values_array[2*kkk]) < Start or int(values_array[(2*kkk ) +1 ]) >  END :
                                         print('Please make sure the start and end excitation wavelengths are higher and lower than the simulated start and end wavelegnths, respectively ')
@@ -831,6 +845,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                             qy_all[kkk + number_of_fluor*(i), int((int(values_array[2*kkk])-Start)/Interval):int((int(values_array[(2*kkk)+1])-Start)/Interval)] = final #constant_qy + term_qy
                                         else:
                                             qy_all[kkk + number_of_fluor*(i), int((int(values_array[2*kkk])-Start)/Interval):int((int(values_array[(2*kkk)+1])-Start)/Interval)] = temp_2 #constant_qy + term_qy
+
 
                     organi_lay_emis = zeros(0, dtype=int)
                 else:
@@ -988,6 +1003,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                 new_QY=interp(index[:], temp_2[:,0], temp_2[:,1])
                             if nc ==1:
                                 if (temp_2_uncert.size) >1 :
+                                    print('multiple columns qy spectral')
                                     if max(temp_2_uncert[:,0]) < 30: 
                                         new_QY_uncert = interp(index[:], temp_2_uncert[:,0]*1000, temp_2_uncert[:,1])
                                     else:
@@ -1010,13 +1026,20 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
                                     else:
                                         term_qy = -new_QY_uncert * erfinv(random.random_sample() )
                                     final = new_QY + term_qy
-                                    if final >1:
-                                        final = 1
-                                    if final < 0:
-                                        final = 0                                        
-                                qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = final
+                                    for unr in range(len(final)):
+                                        if final[unr] >1:
+                                            final[unr] = 1
+                                        if final[unr] < 0:
+                                            final[unr] = 0                                        
+                                #qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = final
+                                for count in range(len(index)):
+                                    if index[count] >= int(values_array[2*(kkk)]) or index[count]<= int(values_array[(2*(kkk))+1]): 
+                                        qy_all[kkk+ number_of_fluor*(i), count] = final[count] 
                             else: 
-                                qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = new_QY        
+                                #qy_all[kkk+ number_of_fluor*(i), int(values_array[2*(kkk)]):int(values_array[(2*(kkk))+1])] = new_QY    
+                                for count in range(len(index)):
+                                    if index[count] >= int(values_array[2*(kkk)]) or index[count]<= int(values_array[(2*(kkk))+1]): 
+                                        qy_all[kkk+ number_of_fluor*(i), count] = new_QY[count]    
                         else:
                             if int(values_array[2*kkk]) < Start or int(values_array[(2*kkk ) +1 ]) >  END :
                                 print('Please make sure the start and end excitation wavelengths are higher and lower than the simulated start and end wavelegnths, respectively ')
@@ -1050,6 +1073,7 @@ def optical_uncert(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_unce
     counting_sims_uncert += 1
     
     return prop, check,qy_all_sim, emission_all_sim,number_of_fluor,length_per_sim,layers_per_sim,counting_sims_uncert
+
 
 def optical(sims_uncert,Quantum_Yiel_all_uncert,Quantum_Yiel_all_int_uncert,fluor_counting_all_Mie,line, infile, particle, medium, check, start_wl, index,Quantum_Yiel_all,emissio,emissio_int,Quantum_Yiel_all_int,values_array,Start,Interval,number_of_fluor, p_num, m_num, particle_type,END,particle_uncert,medium_uncert,uncert,p_num_uncert,m_num_uncert,p_uncert,m_uncert):
     print("Running Mie theory")
@@ -1479,11 +1503,11 @@ def main_func():
                 f.write('\n')
                 f.write('Note: The units are based on micrometer')
                 f.write('\n')
-                f.write('Wavelength\tNormalized Radiosity\tAbsorptance\tTransmittance\tStokes Shift Absorptance\tQuantum Yield Absorptance\tTotal Fluorescent Absorptance\tReflectance (via fluorescent emission)\tFluorescent Absorptance\tNon-Fluorescent Particles/Medium Absorptance')
+                f.write('Wavelength\tNormalized_Radiosity\tAbsorptance\tTransmittance\tStokes_Shift_Absorptance\tQuantum_Yield_Absorptance\tTotal_Fluorescent_Absorptance\tReflectance_(via_fluorescent_emission)\tFluorescent_Absorptance\tNon_Fluorescent_Particles/Medium_Absorptance')
                 num_layers = int(get_num[i])
                 for layer in range(num_layers):
                     #if number_of_fluor == 1:
-                    f.write('\tn_medium(' + str(layer+1) + ')' + '\tk_medium(' + str(layer+1) + ')'  +'\tmu_a(non-fluorescent)(' + str(layer+1) + ')'+  '\tmu_a(medium)(' + str(layer+1) + ')'+ '\tmu_s(' + str(layer+1) + ')'+ '\tg(' + str(layer+1) + ')'+ '\tThickness(' + str(layer+1) + ')')# +  '\tmu_fluor1_(' + str(layer+1) + ')')
+                    f.write('\tn_medium(' + str(layer+1) + ')' + '\tk_medium(' + str(layer+1) + ')'  +'\tmu_a(non_fluorescent)(' + str(layer+1) + ')'+  '\tmu_a(medium)(' + str(layer+1) + ')'+ '\tmu_s(' + str(layer+1) + ')'+ '\tg(' + str(layer+1) + ')'+ '\tThickness(' + str(layer+1) + ')')# +  '\tmu_fluor1_(' + str(layer+1) + ')')
                     for flu in range(number_of_fluor):
                         f.write('\tmu_a(fluorescent)'+ str(flu+1) +'('+ str(layer+1) + ')')
 
