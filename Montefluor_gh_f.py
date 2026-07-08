@@ -1,3 +1,21 @@
+#  Fluor-FOS: a free software that is used for calculations of fluorescent nanoparticle media by combining Mie theory with modified Monte Carlo simulations
+#  Copyright (C) 2025 Khalid Alhammadi <alhammak@purdue.edu>
+#  Copyright (C) 2025 Daniel Carne <dcarne@purdue.edu>
+#  Copyright (C) 2025 Xiulin Ruan <ruan@purdue.edu>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.   
+
 import numpy as np
 from numpy import zeros, random, pi, cos, log, vstack, conj, real,interp, sum
 from numba import prange,njit
@@ -296,22 +314,37 @@ def initialize_photon(start_wl,layer, rsp, prop, ind, qy_all, emission_all,numbe
                     uz = new_angle(uz, g)      
                 else: 
                     correcting_index = ( int(fi *(diff / stepp)) + int(diff) + int( current_layer)) + 1 + k*(length_per_sim[sims-1]) 
-                    correcting_qy_fluor = number_of_fluor*k*sum(layers_per_sim[:sims]) 
+                    correcting_qy_fluor = (int(current_layer)*number_of_fluor) + number_of_fluor*k*sum(layers_per_sim[:sims])  ### mod
                     sum_cumulitive1 = 0
+                    # print('##############')
+                    # print(correcting_qy_fluor)
+                    # print(number_of_fluor)
+                    # print(current_layer)
+                    
+                    # print('start checking fluor emission')
+                    
                     for i in range(len(prop[correcting_index , 8:] )): 
+                        # print(i)
                         prob_f = qy_all[i + correcting_qy_fluor,kkk]* ( prop[correcting_index , 8+i] )
+                        # print('qy',qy_all[i + correcting_qy_fluor,kkk])
+
                         sa = (qy_all[i + correcting_qy_fluor,kkk]* prop[correcting_index , 8+i] + sum_cumulitive1)/( sum_all_non_fluo + ua + beta_nonf)
-                        if (sa) > random.random_sample():
+                        correcting_emis_index = 2*i + number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
+                        limit =int(emission_all[0 + correcting_emis_index,-1] )
+                        if (sa) > random.random_sample() and limit != 0:
     
                             skip = 1
-                            correcting_emis_index = 2*i + number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
+                            #correcting_emis_index = 2*i + number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
                             re_emit = True
                             wavelength_old = (kkk*stepp)+start_wl 
 
                             limit =int(emission_all[0 + correcting_emis_index,-1] )
                             cdf = emission_all[0 + correcting_emis_index, :limit]
                             wave_flo = emission_all[1 + correcting_emis_index, :limit] 
-       
+
+                            # print('wave_flo',wave_flo)
+                            # print('cdf',cdf)
+                            # print('correcting_emis_index',correcting_emis_index)
                             x=int(interp(random.random_sample() , cdf, wave_flo))
                             while x % stepp != 0:
                                 x = x + 1
@@ -353,10 +386,13 @@ def initialize_photon(start_wl,layer, rsp, prop, ind, qy_all, emission_all,numbe
                             sum_absob += temp
                             
                         for i in range(len(prop[correcting_index , 8:] )): 
+                            correcting_emis_index = 2*i + number_of_fluor*2*(int(current_layer)) + number_of_fluor*2*k*sum(layers_per_sim[:sims]) 
+                            limit =int(emission_all[0 + correcting_emis_index,-1] )
+
                             outside_range = (1-qy_all[i + correcting_qy_fluor,kkk])
                             prob_f_h = (1-qy_all[i + correcting_qy_fluor,kkk])* ( prop[correcting_index , 8+i] )
                             sa_2 = ( ((1-qy_all[i + correcting_qy_fluor,kkk])* prop[correcting_index , 8+i] ) + sum_cumulitive2)/( sum_absob + ua + beta_nonf) 
-                            if (sa_2 ) > random.random_sample() and outside_range != 1:
+                            if (sa_2 ) > random.random_sample() and outside_range != 1 and limit != 0:
                                
                                 skip2 = 1
                                 f1 += w
@@ -483,6 +519,19 @@ def main_mc(prop, photons, index, start_wl, qy_all, emission_all,number_of_fluor
     get_number_layer = zeros(sims)
     one_time = True
     count_per_sims = 0
+
+    with open("a_z_qy", 'w') as f:
+        for ii in range(len(qy_all[:,0])):
+            for iii in range(len(qy_all[0,:])):
+                    f.write(str(round(qy_all[ii,iii], 6))  + '\t' )
+            f.write('\n')
+    f.close()
+    with open("a_z_EMISSION", 'w') as f:
+        for ii in range(len(emission_all[:,0])):
+            for iii in range(len(emission_all[0,:])):
+                    f.write(str(round(emission_all[ii,iii], 6))  + '\t' )
+            f.write('\n')
+    f.close()
     for i in range(len(prop[:, 0])):
         if prop[i, 0] == 0: 
             count_per_sims += 1
