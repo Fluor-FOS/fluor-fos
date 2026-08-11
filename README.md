@@ -6,7 +6,7 @@ Open-source software (Fluor-FOS) for fluorescent nanocomposite multi-layer optic
 + Daniel Carne: dcarne@purdue.edu
 + Xiulin Ruan: ruan@purdue.edu
 
-Cite: *Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions* (In revision)
+Cite: *Fluor-FOS: Open-Source Code for Optical Modeling of Multilayer Nanocomposite Media with Fluorescent Inclusions* https://www.sciencedirect.com/science/article/abs/pii/S0010465526003309
 ## Requirements and Installation
 
 The software is written in Python 3.11 and is compatible with any operating system (Windows, macOS, Linux).
@@ -89,11 +89,11 @@ The main functionalities our program offers can be summarized as follows:
 
 2) **Multi-layer fluorescent particle modeling.** Users can insert multiple fluorescent particle inclusions in multi-layer structures with various incident light sources for creating new colors or spectral shifting purposes in 1D systems. Such strategies are relevant for radiative cooling and energy harvesting applications. The software has the potential to be expanded to 2D and 3D systems in future developments.
 
-3) **Uncertainty quantification.** Users can incorporate uncertain optical properties by providing the standard deviation along with optical properties and specifying the desired number of runs for smooth intervals. The uncertainty analysis is based on a derived equation combining normal distribution with random number generation via the fundamental principles of Monte Carlo methods.
+3) **Uncertainty quantification.** Users can incorporate uncertain optical properties (complex referactive index and quantum yield) by providing the standard deviation along with optical properties and specifying the desired number of runs for smooth intervals. The uncertainty analysis is based on a derived equation combining normal distribution with random number generation via the fundamental principles of Monte Carlo methods.
 
 4) **Parallel processing capabilities.** The software utilizes parallel processing for photon launching using the Numba package, despite the computational challenges associated with 2D tensor calculations for reflectance, transmittance, and absorptance.
    
-5) **Different types of absorptances.** The output provides detailed spectral and solar‑weighted values for fluorescent absorptance—quantified either as absorbed photons or radiative relaxation—as well as losses associated with the fluorescent process, including quantum‑yield limitations and Stokes‑shift energy loss. It also distinguishes between ordinary reflectance and fluorescent reflectance (i.e., fluorescence emitted toward the source side), both of which are reported and used in the plotted results.
+5) **Different types of absorptances.** The output provides detailed spectral and solar‑weighted (solar or certain power source) values for fluorescent absorptance—quantified either as absorbed photons or radiative relaxation—as well as losses associated with the fluorescent process, including quantum‑yield limitations and Stokes‑shift energy loss. It also distinguishes between ordinary reflectance and fluorescent reflectance (i.e., fluorescence emitted toward the source side), both of which are reported and used in the plotted results. It should be noted that the different types of absorptances are accurately captured for single fluorescent inclusion while for different materials of fluorescent inclusions, more arrays for scoring the absorptances might be needed to account for the multiple re-absorption effects.
 
 6) **Substrate modeling.** Metallic or polymeric substrates can be included in the simulations.
 
