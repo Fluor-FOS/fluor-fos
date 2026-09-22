@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.       
 from numpy import loadtxt, zeros, append, vstack, asarray, dstack, round,  interp, sum ,arange ,random
 import numpy as np
-from a_MieTheory3fluor2_gh import mie_theory, effective_medium 
-from a_montefluor_gh_f import main_mc 
+from MieTheory3fluor2_gh import mie_theory, effective_medium 
+from Montefluor_gh_f import main_mc 
 from Integration_fluor_gh import solar_spectrum 
 import os.path
 import matplotlib.pyplot as plt
