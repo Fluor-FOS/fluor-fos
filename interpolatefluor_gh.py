@@ -166,13 +166,14 @@ def interpolatee(particle, medium, length, mesh_percentage,Start, End, Interval)
     meshh=zeros(len(range(start_wl,end_wl,step)))  
     for i in range (0,meshh.shape[0]):
         meshh[i]=(start_wl+i*step)  
-    particle22 = zeros((len(particle2[:, 0, 0]), len(range(start_wl,end_wl,step)), 3))  
-    medium22 = zeros((len(medium2[:, 0, 0]), len(range(start_wl,end_wl,step)), 3)) 
+    particle22 = zeros((len(particle2[:, 0, 0]), len(range(start_wl,end_wl,step)), 4))  
+    medium22 = zeros((len(medium2[:, 0, 0]), len(range(start_wl,end_wl,step)), 4)) 
     for i in range(len(particle2[:, 0, 0])):
         particle22[i, :, 0] = meshh[:]
         for j in range(len(meshh)):
             particle22[i,j,1]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 1])
-            particle22[i,j,2]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 2])                                                                                                                
+            particle22[i,j,2]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 2])
+            particle22[i,j,3]= interp(particle22[i, j, 0], particle2[i, :, 0], particle2[i, :, 3])
     for i in range(len(medium2[:, 0, 0])):
         medium22[i, :, 0] = meshh[:]
         for j in range(len(meshh)):
