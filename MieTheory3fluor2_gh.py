@@ -187,6 +187,7 @@ def move_prop_over(paint, acr, thickness,fluor,again,fluor_counting_all_Mie,ptyp
             the_index_for_fluor = k
     if fluor ==1:
         prop[8+the_index_for_fluor, :] = paint[:, 1]*10000
+        prop[7, :] = 1 
 
     prop[6, :] = thickness
     print('Please notice that the inserted attenuation properties will be used assuming the user already used effective mdium on the inserted attenuation properties based on the size and volume loading')
